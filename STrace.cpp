@@ -50,10 +50,12 @@ char getLevel(byte level) {
 			return 'W';
 		case STRACE_ERROR:
 			return 'E';
+		case STRACE_FATAL:
+			return 'F';
 	}
 }
 
-void write2(byte level, String tag, String message)
+void write2(byte level, char* tag, char* message)
 {
 	printPadding(millis() / 1000, 3);
 	Serial.print(": ");
@@ -64,72 +66,78 @@ void write2(byte level, String tag, String message)
 	Serial.println(message);
 }
 
-STrace::STrace(String tag)
+STrace::STrace(char* tag)
 {
 	_tag = tag;
 }
 
-void STrace::write(byte level, String message)
+void STrace::write(byte level, char* message)
 {
 	write2(level, _tag, message);
 }
 
-void STrace::v(String message)
+void STrace::verbose(char* message)
 {
 	STrace::write(STRACE_VERBOSE, message);
 }
 
-void STrace::d(String message)
+void STrace::debug(char* message)
 {
 	STrace::write(STRACE_DEBUG, message);
 }
 
-void STrace::i(String message)
+void STrace::info(char* message)
 {
 	STrace::write(STRACE_INFO, message);
 }
 
-void STrace::p(String message)
+void STrace::important(char* message)
 {
 	STrace::write(STRACE_IMPORTANT, message);
 }
 
-void STrace::w(String message)
+void STrace::warning(char* message)
 {
 	STrace::write(STRACE_WARNING, message);
 }
 
-void STrace::e(String message)
+void STrace::error(char* message)
 {
 	STrace::write(STRACE_ERROR, message);
 }
 
-void logV(String code, String message)
+void STrace::fatal(char* message)
 {
-	write2(STRACE_VERBOSE, code, message);
+	STrace::write(STRACE_FATAL, message);
 }
 
-void logD(String code, String message)
+void STraceLog::v(char* tag, char* message, ...)
 {
-	write2(STRACE_DEBUG, code, message);
+	write2(STRACE_VERBOSE, tag, message);
+}
+void STraceLog::d(char* tag, char* message)
+{
+	write2(STRACE_DEBUG, tag, message);
+}
+void STraceLog::i(char* tag, char* message)
+{
+	write2(STRACE_INFO, tag, message);
+}
+void STraceLog::p(char* tag, char* message)
+{
+	write2(STRACE_IMPORTANT, tag, message);
+}
+void STraceLog::w(char* tag, char* message)
+{
+	write2(STRACE_WARNING, tag, message);
+}
+void STraceLog::e(char* tag, char* message)
+{
+	write2(STRACE_ERROR, tag, message);
+}
+void STraceLog::f(char* tag, char* message)
+{
+	write2(STRACE_FATAL, tag, message);
 }
 
-void logI(String code, String message)
-{
-	write2(STRACE_INFO, code, message);
-}
-
-void logP(String code, String message)
-{
-	write2(STRACE_IMPORTANT, code, message);
-}
-
-void logW(String code, String message)
-{
-	write2(STRACE_WARNING, code, message);
-}
-
-void logE(String code, String message)
-{
-	write2(STRACE_ERROR, code, message);
-}
+ STraceLog Log = STraceLog();
