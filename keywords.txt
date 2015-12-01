@@ -1,0 +1,25 @@
+#######################################
+# Syntax Coloring Map For STrace
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+STrace	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+write	KEYWORD2
+debug	KEYWORD2
+information	KEYWORD2
+important	KEYWORD2
+warning	KEYWORD2
+error	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
