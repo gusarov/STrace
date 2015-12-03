@@ -5,6 +5,8 @@ STrace log2 = STrace("log2");
 
 void setup() {
   Log.level = STRACE_INFO;
+  Log.errorLedMode = 0;
+  
   Serial.begin(115200);
   
   Log.v("M_TAG", "Initializing...");
@@ -62,7 +64,6 @@ void Formatting() {
   Log.v("M_TAG", "Format String=%s Verbose %3d", "test", 25);
   Log.v("M_TAG", "Format String=Asd Verbose Asd");
 
-  /*
   log1.verbose("Format String=%s Verbose %d", "test", 5);
   log1.debug("Format String=%s Debug %d", "test", 5);
   log1.info("Format String=%s Information %d", "test", 5.5);
@@ -78,7 +79,6 @@ void Formatting() {
   Log.w("M_TAG", "Format String=%s Warning %d", "test", 5);
   Log.e("M_TAG", "Format String=%s Error %d", "test", 5);
   Log.f("M_TAG", "Format String=%s Fatal %d ", "test", 5);
-  */
 }
 
 int myInt1, myInt2;
@@ -94,8 +94,6 @@ void OldLoggingLibrary() {
     myBool1 = true;
     myBool2 = !myBool1;
 
-/*
-
     log1.info("Display my integers myInt1 %d, myInt2 %d", myInt1, myInt2);
     log1.info("Display as hex myInt1=%x, myInt1=%X", myInt1, myInt1);
     log1.info("Display as hex myInt2=%x, myInt2=%X", myInt2, myInt2);
@@ -108,11 +106,14 @@ void OldLoggingLibrary() {
     log1.debug("%d, %d, %l, %l, %t, %T", myInt1, myInt2,
               myLong1, myLong2,
               myBool1, myBool2);
-    Log.info("have fun with this Log");
-*/
-
+    log1.info("have fun with this Log");
 }
 
 void loop() {
   delay(5000);
+  Log.blinkNumber(0.25 * 10);
+  delay(5000);
+  Log.blinkNumber(0.50 * 10);
+  delay(5000);
+  Log.blinkNumber(0.75 * 10);
 }

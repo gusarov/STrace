@@ -63,7 +63,24 @@ public:
   void e(char* tag, char* message, ...);
   void f(char* tag, char* message, ...);
   
+  // COMMON CORE DATA AND METHODS
   int level = 0;
+  
+  // 0 means that there is no error tracking
+  // 1 means that led is turned on constantly after error
+  // 2 means that led is blinked synchronously 2 times with a 1 sec total delay
+  // 3 means that blinking maintained while calling other logging methods, or separate routine 'handleBackground' should be called when appropriate (like at the end of each loop)
+  int errorLedMode = 0;
+  int errorLedPin = 13;
+  
+  void handleBackground();
+
+  int debugLedPin = 13;
+  void blink5V(float voltage);
+  void blink12V(float voltage);
+  void blinkNumber(int num); // quick blink some number
+  void blinkDigit(byte dig); // quick blink some digit
+  void blinkRatio(float dig, int pulses); // quick blink some ratio 0..1
 };
 
 extern STraceLog Log;
